@@ -63,31 +63,34 @@
 
 		function Exception (){}
 
-		function HtmlRowRed(){
-		    this.getHTML = function (rowColor){
-		        var html = '<tr class="red"><td>red</td><td class="fill"></td></tr>';
+		function Row(){
+		    this.getHTML = function (){
+		        var html = '<tr class="'+this.rowColor+'"><td>'+this.rowColor+'</td><td class="fill"></td></tr>';
 				return html
 			}
 		}
-        function HtmlRowBlue(){
-            this.getHTML = function (rowColor){
-                var html = '<tr class="blue"><td>blue</td><td class="fill"></td></tr>';
-                return html
-            }
+
+		function RowRed(){
+		    this.rowColor = 'red'
+		}
+		RowRed.prototype = new Row(this.rowColor);
+
+        function RowGreen(){
+            this.rowColor = 'green'
         }
-        function HtmlRowGreen(){
-            this.getHTML = function (rowColor){
-                var html = '<tr class="green"><td>green</td><td class="fill"></td></tr>';
-                return html
-            }
+        RowGreen.prototype = new Row(this.rowColor);
+
+        function RowBlue(){
+            this.rowColor = 'blue'
         }
+        RowBlue.prototype = new Row(this.rowColor);
 
 		function RowFactory() {
             this.makeRow = function(color) {
                 switch (color) {
-                    case 'red': return new HtmlRowRed();
-                    case 'blue': return new HtmlRowBlue();
-                    case 'green': return new HtmlRowGreen();
+                    case 'red': return new Row();
+                    case 'blue': return new Row();
+                    case 'green': return new Row();
                     default: throw new Exception('wrong color');
                 }
             }
