@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>3.factory-task</title>
+</head>
+<style type="text/css">
+	.fill 			{ width: 90%; }
+	.red .fill 	{ background-color: red; }
+	.blue .fill { background-color: blue; }
+	.green .fill { background-color: green; }
+</style>
+
+<body>
+
+	<table id="table">
+		<tr>
+			<th colspan="2">ZA POMOCĄ HTML</th>
+		</tr>
+		<tr class="red">
+			<td>red</td>
+			<td class="fill"></td>
+		</tr>
+		<tr class="red">
+			<td>red</td>
+			<td class="fill"></td>
+		</tr>
+		<tr class="red">
+			<td>red</td>
+			<td class="fill"></td>
+		</tr>
+		<tr class="red">
+			<td>red</td>
+			<td class="fill"></td>
+		</tr>
+		<tr class="blue">
+			<td>blue</td>
+			<td class="fill"></td>
+		</tr>
+		<tr class="red">
+			<td>red</td>
+			<td class="fill"></td>
+		</tr>
+		<tr class="blue">
+			<td>blue</td>
+			<td class="fill"></td>
+		</tr>
+		<tr class="green">
+			<td>green</td>
+			<td class="fill"></td>
+		</tr>
+	</table>
+
+
+	<table id="tableJS"></table>
+
+
+	<script type="text/javascript">
+		// --------------------------------------------------------------
+		// ZADANIE - Napisz kod fabryki generującej kolorowe wiersze tabeli, która zostanie
+		//			 użyta przez napisany na końcu pliku kod - którego nie wolno zmieniać.
+
+		function Exception (){}
+
+		function HtmlRowRed(){
+		    this.getHTML = function (rowColor){
+		        var html = '<tr class="red"><td>red</td><td class="fill"></td></tr>';
+				return html
+			}
+		}
+        function HtmlRowBlue(){
+            this.getHTML = function (rowColor){
+                var html = '<tr class="red"><td>red</td><td class="fill"></td></tr>';
+                return html
+            }
+        }
+        function HtmlRowGreen(){
+            this.getHTML = function (rowColor){
+                var html = '<tr class="red"><td>red</td><td class="fill"></td></tr>';
+                return html
+            }
+        }
+
+		function RowFactory() {
+            this.makeRow = function(color) {
+                switch (color) {
+                    case 'red': return new HtmlRowRed();
+                    case 'blue': return new HtmlRowBlue();
+                    case 'green': return new HtmlRowGreen();
+                    default: throw new Exception('wrong color');
+                }
+            }
+		}
+
+
+
+		// --------------------------------------------------------------
+		// PONIŻSZEGO KODU NIE WOLNO MODYFIKOWAĆ
+		// To jest kod używający fabryki, którą nalezy stworzyć
+
+		var myRowFactory = new RowFactory();
+		var table = document.getElementById('tableJS');
+		table.innerHTML += '<tr><th colspan="2">ZA POMOCĄ JAVASCRIPT</th></tr>';
+		table.innerHTML += myRowFactory.makeRow('red').getHTML();
+		table.innerHTML += myRowFactory.makeRow('red').getHTML();
+		table.innerHTML += myRowFactory.makeRow('red').getHTML();
+		table.innerHTML += myRowFactory.makeRow('red').getHTML();
+		table.innerHTML += myRowFactory.makeRow('blue').getHTML();
+		table.innerHTML += myRowFactory.makeRow('red').getHTML();
+		table.innerHTML += myRowFactory.makeRow('blue').getHTML();
+		table.innerHTML += myRowFactory.makeRow('green').getHTML();
+	</script>
+
+</body>
+
+</html>
